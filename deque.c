@@ -195,6 +195,7 @@ void deque_print(Deque *deque) {
     curr = curr->prev;
   }
   printf("TOP (push/pop side)\n");
+  printf("Size: %d \n", deque_size(deque));
 
 
 }
