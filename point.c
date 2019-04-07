@@ -30,3 +30,8 @@ void print_point(Point p) {
 }
 
 // TODO: Add any other functions you may need
+
+//Gets cross product of a x b
+float point_cross_product(Point a, Point b) {
+  return a.x * b.y - a.y*b.x;
+}

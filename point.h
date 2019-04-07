@@ -30,5 +30,6 @@ Point new_point(double x, double y);
 void print_point(Point p);
 
 // TODO: Add any other functions you may need
+float point_cross_product(Point a, Point b);
 
 #endif
