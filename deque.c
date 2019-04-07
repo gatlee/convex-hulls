@@ -87,8 +87,8 @@ void deque_push(Deque *deque, Point data) {
     deque->bottom = node;
   } else {
     node->next = deque->top;
-    deque->bottom->prev = node;
-    deque->bottom = node;
+    deque->top->prev = node;
+    deque->top = node;
   }
 
   deque->size++;
