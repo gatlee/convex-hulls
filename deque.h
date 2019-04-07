@@ -72,4 +72,5 @@ int deque_size(Deque *deque);
 
 // TODO: Add any other functions you might need for your Deque module
 
+void deque_print(Deque *deque);
 #endif

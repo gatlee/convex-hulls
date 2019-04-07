@@ -110,3 +110,14 @@ int deque_size(Deque *deque) {
 }
 
 // TODO: Add any other functions you might need for your Deque module
+
+void deque_print(Deque *deque) {
+  Node* curr = deque->head;
+  printf("HEAD [");
+  while (curr != NULL) {
+    print_point(curr->data);
+    curr = curr->next;
+  }
+  printf("] TAIL");
+
+}
