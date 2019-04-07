@@ -166,11 +166,21 @@ int deque_size(Deque *deque) {
 
 void deque_print(Deque *deque) {
   Node* curr = deque->top;
-  printf("TOP [");
+  printf("TOP (push/pop side)\n");
   while (curr != NULL) {
     print_point(curr->data);
     curr = curr->next;
   }
-  printf("] BOTTOM");
+  printf("BOTTOM (insert/remove side)\n");
+
+  printf("REVERSE PRINT\n");
+  curr = deque->bottom;
+  printf("BOTTOM (insert/remove side)\n");
+  while (curr != NULL) {
+    print_point(curr->data);
+    curr = curr->prev;
+  }
+  printf("TOP (push/pop side)\n");
+
 
 }
