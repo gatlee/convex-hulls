@@ -119,7 +119,10 @@ void deque_insert(Deque *deque, Point data) {
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_pop(Deque *deque) {
-  //TODO: Size check
+  if (deque_size(deque) <=0) {
+    fprintf(stderr, "Error: Attempting to pop from empty deque");
+    exit(EXIT_FAILURE);
+  }
   Point point = deque->top->data;
   Node *old_top = deque->top;
 
@@ -140,7 +143,10 @@ Point deque_pop(Deque *deque) {
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_remove(Deque *deque) {
-  //TODO: Size check
+  if (deque_size(deque) <=0) {
+    fprintf(stderr, "Error: Attempting to remove from empty deque");
+    exit(EXIT_FAILURE);
+  }
   Point point = deque->bottom->data;
   Node *old_bottom = deque->bottom;
 
