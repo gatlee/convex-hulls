@@ -119,19 +119,38 @@ void deque_insert(Deque *deque, Point data) {
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_pop(Deque *deque) {
+  //TODO: Size check
+  Point point = deque->top->data;
+  Node *old_top = deque->top;
 
+  //Reassign top
+  deque->top = deque->top->next;
+  deque->top->prev = NULL;
+
+  free(old_top);
+
+  deque->size--;
+
+  return point;
 }
 
 // Remove and return the bottom Point from a Deque
 //
-// TODO: Fill in the runtime of this function
 // Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_remove(Deque *deque) {
-  // TODO: Implement deque_remove()
-  fprintf(stderr, "Error: deque_remove() not implemented\n");
-  exit(EXIT_FAILURE);
+  //TODO: Size check
+  Point point = deque->bottom->data;
+  Node *old_bottom = deque->bottom;
+
+  //Reassign Bottom
+  deque->bottom = deque->bottom->prev;
+  deque->bottom->next = NULL;
+
+  free(old_bottom);
+  deque->size--;
+  return point;
 }
 
 // Return the number of Points in a Deque
