@@ -34,8 +34,8 @@ typedef struct Node {
 } Node;
 
 struct deque {
-  Node* head;
-  Node* tail;
+  Node* top;
+  Node* bottom;
   int size;
 
 };
@@ -48,8 +48,8 @@ Deque *new_deque() {
   assert(deque);
 
   //Set initial values
-  deque->head = NULL;
-  deque->tail = NULL;
+  deque->top = NULL;
+  deque->bottom = NULL;
   deque->size = 0;
   return deque;
 }
@@ -77,19 +77,18 @@ void free_deque(Deque *deque) {
 
 // Add a Point to the top of a Deque
 //
-// TODO: Fill in the runtime of this function
 // Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 void deque_push(Deque *deque, Point data) {
   Node *node = new_node(data);
-  if (deque->head == NULL) {
-    deque->head = node;
-    deque->tail = node;
+  if (deque->top == NULL) {
+    deque->top = node;
+    deque->bottom = node;
   } else {
-    node->next = deque->head;
-    deque->head->prev = node;
-    deque->head = node;
+    node->next = deque->top;
+    deque->bottom->prev = node;
+    deque->bottom = node;
   }
 
   deque->size++;
@@ -97,19 +96,18 @@ void deque_push(Deque *deque, Point data) {
 
 // Add a Point to the bottom of a Deque
 //
-// TODO: Fill in the runtime of this function
 // Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 void deque_insert(Deque *deque, Point data) {
   Node *node = new_node(data);
-  if (deque->tail == NULL) {
-    deque->head = node;
-    deque->tail = node;
+  if (deque->bottom == NULL) {
+    deque->top = node;
+    deque->bottom = node;
   } else {
-    node->prev = deque->tail;
-    deque->tail->next = node;
-    deque->tail = node;
+    node->prev = deque->bottom;
+    deque->bottom->next = node;
+    deque->bottom = node;
   }
 
   deque->size++;
@@ -117,20 +115,17 @@ void deque_insert(Deque *deque, Point data) {
 
 // Remove and return the top Point from a Deque
 //
-// TODO: Fill in the runtime of this function
-// Runtime: ...
+// Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_pop(Deque *deque) {
-  // TODO: Implement deque_pop()
-  fprintf(stderr, "Error: deque_pop() not implemented\n");
-  exit(EXIT_FAILURE);
+
 }
 
 // Remove and return the bottom Point from a Deque
 //
 // TODO: Fill in the runtime of this function
-// Runtime: ...
+// Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Point deque_remove(Deque *deque) {
@@ -154,12 +149,12 @@ int deque_size(Deque *deque) {
 // TODO: Add any other functions you might need for your Deque module
 
 void deque_print(Deque *deque) {
-  Node* curr = deque->head;
-  printf("HEAD [");
+  Node* curr = deque->top;
+  printf("TOP [");
   while (curr != NULL) {
     print_point(curr->data);
     curr = curr->next;
   }
-  printf("] TAIL");
+  printf("] BOTTOM");
 
 }
