@@ -132,11 +132,13 @@ int main(int argc, char **argv) {
 // the third point is to the left, right or collinear with then line segment
 // formed by the former two.
 void test_orientation() {
+  int i;
   int values_read;
+  char direction;
   Point points[NUM_POINTS_ORIENTATION];
 
   // Read in the points from stdin
-  for (int i = 0; i < NUM_POINTS_ORIENTATION; i++) {
+  for (i = 0; i < NUM_POINTS_ORIENTATION; i++) {
     values_read = scanf("%lf %lf", &(points[i].x), &(points[i].y));
 
     if (values_read != 2) {
@@ -146,12 +148,12 @@ void test_orientation() {
   }
 
   // Print out the points
-  for (int i = 0; i < NUM_POINTS_ORIENTATION; i++) {
+  for (i = 0; i < NUM_POINTS_ORIENTATION; i++) {
     printf("p%d: ", i);
     print_point(points[i]);
   }
 
-  char direction = orientation(points[0], points[1], points[2]);
+  direction = orientation(points[0], points[1], points[2]);
 
   // Print an appropriate message, or exit if something unexpected is returned
   if (direction == COLLINEAR) {
@@ -224,6 +226,10 @@ void test_deque() {
       exit(EXIT_FAILURE);
     }
   }
+
+  // Free the memory for our deque
+  free_deque(deque);
+  deque = NULL;
 }
 
 // Reads in a list of points from stdin in the format:
@@ -301,10 +307,12 @@ bool is_empty(char *str) {
 // The command is stored in cmd, and terminated by a null byte ('\0').
 // The caller should check whether cmd is the empty string (see is_empty()).
 bool read_command(char *cmd, int size) {
+  char c;
+  int i;
+
   assert(size > 0);
 
-  char c;
-  int i = 0;
+  i = 0;
   while ((c = getchar()) != EOF) {
     // We can't store any characters past the (size - 1)th char,
     // and won't store any whitespace.
