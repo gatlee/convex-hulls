@@ -21,22 +21,48 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "deque.h"
 #include "point.h"
 
-// TODO: Fill in this struct definition, or change the typedef in deque.h
+
+typedef struct Node {
+  struct Node* next;
+  struct Node* prev;
+  Point data;
+} Node;
+
 struct deque {
-  // TODO: Add fields here
+  Node* head;
+  Node* tail;
+  int size;
+
 };
 
 // Create a new empty Deque and return a pointer to it
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 Deque *new_deque() {
-  // TODO: Implement new_deque()
-  fprintf(stderr, "Error: new_deque() not implemented\n");
-  exit(EXIT_FAILURE);
+  Deque *deque = (Deque *)malloc(sizeof(Deque));
+  assert(deque);
+
+  //Set initial values
+  deque->head = NULL;
+  deque->tail = NULL;
+  deque->size = 0;
+  return deque;
+}
+
+Node *new_node(Point new_data) {
+  Node *node = (Node *)malloc(sizeof(Node));
+  assert(node);
+  //Set initial values
+  node->data = new_data;
+  node->next = NULL;
+  node->prev = NULL;
+
+  return node;
 }
 
 
@@ -52,25 +78,41 @@ void free_deque(Deque *deque) {
 // Add a Point to the top of a Deque
 //
 // TODO: Fill in the runtime of this function
-// Runtime: ...
+// Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 void deque_push(Deque *deque, Point data) {
-  // TODO: Implement deque_push()
-  fprintf(stderr, "Error: deque_push() not implemented\n");
-  exit(EXIT_FAILURE);
+  Node *node = new_node(data);
+  if (deque->head == NULL) {
+    deque->head = node;
+    deque->tail = node;
+  } else {
+    node->next = deque->head;
+    deque->head->prev = node;
+    deque->head = node;
+  }
+
+  deque->size++;
 }
 
 // Add a Point to the bottom of a Deque
 //
 // TODO: Fill in the runtime of this function
-// Runtime: ...
+// Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 void deque_insert(Deque *deque, Point data) {
-  // TODO: Implement deque_insert()
-  fprintf(stderr, "Error: deque_insert() not implemented\n");
-  exit(EXIT_FAILURE);
+  Node *node = new_node(data);
+  if (deque->tail == NULL) {
+    deque->head = node;
+    deque->tail = node;
+  } else {
+    node->prev = deque->tail;
+    deque->tail->next = node;
+    deque->tail = node;
+  }
+
+  deque->size++;
 }
 
 // Remove and return the top Point from a Deque
