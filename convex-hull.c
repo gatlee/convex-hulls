@@ -23,9 +23,24 @@
 // right it returns RIGHT ('r').
 // If p0, p1 and p2 are collinear then COLLINEAR ('c') is returned.
 char orientation(Point p0, Point p1, Point p2) {
-  // TODO: Implement orientation()
-  fprintf(stderr, "Error: orientation() not implemented\n");
-  exit(EXIT_FAILURE);
+  // u is vector from p0 to p1
+  Point u;
+  u.x = p1.x - p0.x;
+  u.y = p1.y - p0.y;
+
+  // v is vector from p0 to p2
+  Point v;
+  v.x = p2.x - p0.x;
+  v.y = p2.y - p0.y;
+
+  float cross_uv = point_cross_product(u, v);
+  if (cross_uv > 0 ) {
+    return 'l';
+  } else if (cross_uv < 0) {
+    return 'r';
+  } else {
+    return 'c';
+  }
 }
 
 // Takes a polygon (i.e. an array of points) given in counter-clockwise order
