@@ -155,14 +155,11 @@ Point deque_remove(Deque *deque) {
 
 // Return the number of Points in a Deque
 //
-// TODO: Fill in the runtime of this function
-// Runtime: ...
+// Runtime: O(1)
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 int deque_size(Deque *deque) {
-  // TODO: Implement deque_size()
-  fprintf(stderr, "Error: deque_size() not implemented\n");
-  exit(EXIT_FAILURE);
+  return deque->size;
 }
 
 // TODO: Add any other functions you might need for your Deque module
