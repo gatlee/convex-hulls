@@ -128,7 +128,11 @@ Point deque_pop(Deque *deque) {
 
   //Reassign top
   deque->top = deque->top->next;
-  deque->top->prev = NULL;
+  if (deque->top == NULL) {
+    deque->bottom = NULL;
+  } else {
+    deque->top->prev = NULL;
+  }
 
   free(old_top);
 
@@ -152,7 +156,11 @@ Point deque_remove(Deque *deque) {
 
   //Reassign Bottom
   deque->bottom = deque->bottom->prev;
-  deque->bottom->next = NULL;
+  if (deque->bottom == NULL) {
+    deque->top = NULL;
+  } else {
+    deque->bottom->next = NULL;
+  }
 
   free(old_bottom);
   deque->size--;
