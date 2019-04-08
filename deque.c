@@ -203,3 +203,32 @@ void deque_print(Deque *deque) {
 
 
 }
+
+Point deque_peek_top(Deque* deq, int index) {
+  int i = 0;
+  Node *curr = deq->top;
+  while (i < index && curr != NULL) {
+    curr = curr->next;
+  }
+  if (curr == NULL) {
+    fprintf(stderr, "Error: Indexing deque out of bounds");
+    exit(EXIT_FAILURE);
+
+  }
+  return curr->data;
+}
+
+Point deque_peek_bottom(Deque* deq, int index) {
+  int i = 0;
+  Node *curr = deq->bottom;
+  while (i < index && curr != NULL) {
+    curr = curr->prev;
+  }
+
+  if (curr == NULL) {
+    fprintf(stderr, "Error: Indexing deque out of bounds");
+    exit(EXIT_FAILURE);
+
+  }
+  return curr->data;
+}

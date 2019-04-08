@@ -70,7 +70,18 @@ Point deque_remove(Deque *deque);
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 int deque_size(Deque *deque);
 
-// TODO: Add any other functions you might need for your Deque module
 
 void deque_print(Deque *deque);
+
+// Returns the point at the specified index with pythonic indexing rules
+// Eg. p[-1] gets the last item
+Point deque_get(Deque* deq, int index);
+
+// Returns point at top of deque without mutating deque. Index 0 returns top most item.
+Point deque_peek_top(Deque* deq, int index);
+
+// Returns point at bottom of deque without mutating deque. Index 0 returns bottom most item
+Point deque_peek_bottom(Deque* deq, int index);
+
 #endif
+
