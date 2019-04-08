@@ -24,6 +24,11 @@
 #define ORIENT_L 'l'
 #define ORIENT_C 'c'
 
+void initialise_queue(Deque *deq, Point *p);
+bool has_colinear_points(Point *polygon, int n);
+bool top_two_turns_left(Deque *deq, Point third_point);
+bool bot_two_turns_left(Deque *deq, Point third_point);
+void write_to_hull(Deque *deq, Point* hull);
 // Returns the orientation of Point p2 in relation to the line segment p0p1.
 // If p2 is to the left of p0p1 then it returns LEFT ('l'), if p2 is to the
 // right it returns RIGHT ('r').
@@ -61,7 +66,90 @@ char orientation(Point p0, Point p1, Point p2) {
 //
 // If an error occurs this function should return INSIDE_HULL_ERROR.
 int inside_hull(Point *polygon, int n, Point *hull) {
-  // TODO: Implement the InsideHull algorithm
-  fprintf(stderr, "Error: inside_hull() not implemented\n");
-  exit(EXIT_FAILURE);
+  if (n < 3) {
+    fprintf(stderr, "Error: Insufficient number of points in polygon");
+    return(INSIDE_HULL_ERROR);
+  }
+
+  if (has_colinear_points(polygon, n)) {
+    fprintf(stderr, "Error: Colinear Points Found");
+    return(COLLINEAR_POINTS);
+  }
+
+  Deque *deq = new_deque();
+
+  initialise_queue(deq, polygon);
+
+  int i = 3;
+  while (i < n) {
+    Point currentPoint = polygon[i];
+
+    if (top_two_turns_left(deq, currentPoint) && bot_two_turns_left(deq, currentPoint)) {
+      i++;
+      continue;
+    }
+
+    while (top_two_turns_left(deq, currentPoint) == false) {
+      deque_pop(deq);
+    }
+    deque_push(deq, currentPoint);
+
+    while (bot_two_turns_left(deq, currentPoint) == false) {
+      deque_remove(deq);
+    }
+    deque_insert(deq, currentPoint);
+    i++;
+  }
+
+  deque_write_to_hull(deq, hull);
+  return (deque_size(deq) - 1);
+
 }
+
+
+//Checks for colinear points in list of points
+bool has_colinear_points(Point *polygon, int n) {
+  for (int i = 0; i < n; i++) {
+    char orient = orientation(polygon[i %n], polygon[(i+1)%n], polygon[(i+2)%n]);
+    if (orient == ORIENT_C) {
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+void initialise_queue(Deque *deq, Point *p) {
+  if(orientation(p[0], p[1], p[2]) == ORIENT_L) {
+    // init with {p2 p0 p1 p2}
+    deque_insert(deq, p[2]);
+    deque_insert(deq, p[1]);
+    deque_insert(deq, p[0]);
+    deque_insert(deq, p[2]);
+  } else {
+    // init with {p2 p1 p0 p2}
+    deque_insert(deq, p[2]);
+    deque_insert(deq, p[0]);
+    deque_insert(deq, p[1]);
+    deque_insert(deq, p[2]);
+  }
+}
+
+// Returns true if third point is to the left of the vector from the two bot points of deque
+bool bot_two_turns_left(Deque *deq, Point third_point) {
+  char turn = orientation(deque_peek_bottom(deq, 0), deque_peek_bottom(deq, 1), third_point);
+  if (turn == ORIENT_L) {
+    return true;
+  }
+  return false;
+}
+
+// Returns true if third point is to the left of the vector from the two top points of deque
+bool top_two_turns_left(Deque *deq, Point third_point) {
+  char turn = orientation(deque_peek_top(deq, 1), deque_peek_top(deq, 0), third_point);
+  if (turn == ORIENT_L) {
+    return true;
+  }
+  return false;
+}
+

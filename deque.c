@@ -209,9 +209,10 @@ Point deque_peek_top(Deque* deq, int index) {
   Node *curr = deq->top;
   while (i < index && curr != NULL) {
     curr = curr->next;
+    i++;
   }
   if (curr == NULL) {
-    fprintf(stderr, "Error: Indexing deque out of bounds");
+    fprintf(stderr, "Error: Indexing deque out of bounds top");
     exit(EXIT_FAILURE);
 
   }
@@ -223,12 +224,32 @@ Point deque_peek_bottom(Deque* deq, int index) {
   Node *curr = deq->bottom;
   while (i < index && curr != NULL) {
     curr = curr->prev;
+    i++;
   }
 
   if (curr == NULL) {
-    fprintf(stderr, "Error: Indexing deque out of bounds");
+    deque_print(deq);
+    fprintf(stderr, "Error: Indexing deque out of bounds bottom");
     exit(EXIT_FAILURE);
 
   }
   return curr->data;
 }
+
+void deque_write_to_hull(Deque* deq, Point* hull) {
+  if (deque_size(deq) < 3) {
+    fprintf(stderr, "Error: Deque is not big enough to write to hull");
+    exit(EXIT_FAILURE);
+  }
+  Node* curr = deq->bottom;
+  int i = 0;
+  while (curr->prev != NULL) {
+    hull[i] = curr->data;
+    i++;
+    curr = curr -> prev;
+  }
+}
+
+
+
+

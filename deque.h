@@ -19,6 +19,7 @@
 
 // You may change the definition of Deque but DO NOT change the name
 typedef struct deque Deque;
+struct Node;
 
 // Create a new empty Deque and return a pointer to it
 //
@@ -82,6 +83,8 @@ Point deque_peek_top(Deque* deq, int index);
 
 // Returns point at bottom of deque without mutating deque. Index 0 returns bottom most item
 Point deque_peek_bottom(Deque* deq, int index);
+
+void deque_write_to_hull(Deque* deq, Point* hull);
 
 #endif
 
