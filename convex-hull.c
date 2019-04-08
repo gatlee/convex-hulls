@@ -20,9 +20,9 @@
 #include "convex-hull.h"
 #include "deque.h"
 
-#define ORIENT_RIGHT 'r'
-#define ORIENT_LEFT 'l'
-#define ORIENT_COLINEAR 'c'
+#define ORIENT_R 'r'
+#define ORIENT_L 'l'
+#define ORIENT_C 'c'
 
 // Returns the orientation of Point p2 in relation to the line segment p0p1.
 // If p2 is to the left of p0p1 then it returns LEFT ('l'), if p2 is to the
@@ -41,11 +41,11 @@ char orientation(Point p0, Point p1, Point p2) {
 
   float cross_uv = point_cross_product(u, v);
   if (cross_uv > 0 ) {
-    return ORIENT_LEFT;
+    return ORIENT_L;
   } else if (cross_uv < 0) {
-    return ORIENT_RIGHT;
+    return ORIENT_R;
   } else {
-    return ORIENT_COLINEAR;
+    return ORIENT_C;
   }
 }
 
