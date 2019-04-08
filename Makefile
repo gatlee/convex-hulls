@@ -5,7 +5,7 @@
 # Created by Tobias Edwards <tobias.edwards@unimelb.edu.au>
 
 CC     = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -std=c99
 EXE    = a1
 OBJ    = main.o point.o deque.o convex-hull.o
 
