@@ -41,7 +41,6 @@
 #define DEQUE_CMD_INSERT "insert"
 #define DEQUE_CMD_REMOVE "remove"
 #define DEQUE_CMD_SIZE "size"
-#define DEQUE_PRINT "print"
 
 // Max length of a command when using the --deque option
 #define MAX_CMD_LEN 16
@@ -179,7 +178,6 @@ void test_orientation() {
 //   pop
 //   remove
 //   size
-//   print
 //
 // Push and insert will add a point to the deque, while pop and remove will
 // take a point and print it out in the format "x y".
@@ -219,8 +217,6 @@ void test_deque() {
     } else if (strcmp(cmd, DEQUE_CMD_SIZE) == 0) {
       size = deque_size(deque);
       printf("%d\n", size);
-    } else if (strcmp(cmd, DEQUE_PRINT) == 0) {
-      deque_print(deque);
     } else {
       fprintf(stderr, "Error: unexpected command \"%s\"\n", cmd);
       exit(EXIT_FAILURE);
