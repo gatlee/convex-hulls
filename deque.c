@@ -70,9 +70,14 @@ Node *new_node(Point new_data) {
 //
 // DO NOT CHANGE THIS FUNCTION SIGNATURE
 void free_deque(Deque *deque) {
-  // TODO: Implement free_deque()
-  fprintf(stderr, "Error: free_deque() not implemented\n");
-  exit(EXIT_FAILURE);
+  Node *prev = NULL;
+  Node *curr = deque->top;
+  while (curr!=NULL) {
+    prev = curr;
+    curr = curr->next;
+    free(prev);
+  }
+  free(deque);
 }
 
 // Add a Point to the top of a Deque
@@ -176,7 +181,6 @@ int deque_size(Deque *deque) {
   return deque->size;
 }
 
-// TODO: Add any other functions you might need for your Deque module
 
 void deque_print(Deque *deque) {
   Node* curr = deque->top;
